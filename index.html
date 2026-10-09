@@ -807,9 +807,9 @@ const total = subtotal + delivery;
     );
   });
 
-  message += encodeURIComponent(
-    `\nSubtotal: ${money(total)}\nPlease confirm availability, delivery charges and payment instructions.`
-  );
+message += encodeURIComponent(
+  `\nSubtotal: ${money(subtotal)}\nDelivery charges: ${money(delivery)}\nTotal payable: ${money(total)}\nPayment: Easypaisa\nAccount title: Jamil Ahmad\nEasypaisa number: 03452077262\nPlease confirm the order.`
+);
 
   window.open(
     "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message,
