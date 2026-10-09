@@ -794,8 +794,9 @@ document.getElementById("checkoutButton").onclick = () => {
     return;
   }
 
-  const total = cart.reduce((sum,item) =>
-    sum + item.price*item.qty, 0);
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+const delivery = 500;
+const total = subtotal + delivery;
 
   let message = "Assalam-o-Alaikum Hilal Perfumes!%0A";
   message += "I would like to enquire about this order:%0A%0A";
