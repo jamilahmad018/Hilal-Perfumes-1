@@ -589,7 +589,12 @@ footer a:hover { color: var(--gold); }
     </div>
     <p class="cart-note">
     Fixed delivery charges: Rs. 500. Payment via Easypaisa. Orders are confirmed after payment verification.
-    </p>
+    </p><div class="customer-form">
+  <input id="customerName" type="text" placeholder="Your Full Name" required>
+  <input id="customerPhone" type="tel" placeholder="Mobile Number" required>
+  <input id="customerCity" type="text" placeholder="City (e.g. Swat)" required>
+  <textarea id="customerAddress" placeholder="Complete Delivery Address" required></textarea>
+    </div>
     <button class="btn full" id="checkoutButton">Order via WhatsApp →</button>
     <p class="cart-note">Your order request will open in WhatsApp for confirmation.</p>
   </div>
@@ -793,14 +798,24 @@ document.getElementById("checkoutButton").onclick = () => {
     alert("Please configure the store WhatsApp number in the website code.");
     return;
   }
+const name = document.getElementById("customerName").value.trim();
+const phone = document.getElementById("customerPhone").value.trim();
+const city = document.getElementById("customerCity").value.trim();
+const address = document.getElementById("customerAddress").value.trim();
 
+if (!name || !phone || !city || !address) {
+  alert("Please fill in all delivery details.");
+  return;
+}
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 const delivery = 500;
 const total = subtotal + delivery;
 
   let message = "Assalam-o-Alaikum Hilal Perfumes!%0A";
   message += "I would like to enquire about this order:%0A%0A";
-
+message += encodeURIComponent(
+  `\nCustomer name: ${name}\nMobile: ${phone}\nCity: ${city}\nDelivery address: ${address}\n\nOrder details:\n`
+);
   cart.forEach(item => {
     message += encodeURIComponent(
       `${item.name} x ${item.qty} = ${money(item.price*item.qty)}\n`
